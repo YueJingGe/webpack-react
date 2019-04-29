@@ -1,19 +1,7 @@
-import "./index.css";
+import React from "react";
+import ReactDom from "react-dom";
 
-if (process.env.NODE_ENV !== "production") {
-  console.log("现在在开发环境");
-}
-
-async function getComponent() {
-  let element = document.createElement("div");
-
-  const { default: _ } = await import(/* webpackChunkName: "lodash" */ "lodash");
-
-  element.innerHTML = _.join(['Hello', 'webpack'], '');
-
-  return element;
-}
-
-getComponent().then(component => {
-  document.body.appendChild(component);
-});
+ReactDom.render(
+  <div>hello,react</div>, 
+  document.getElementById("root")
+);

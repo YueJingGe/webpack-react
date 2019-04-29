@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/YueJingGe/webpack-react#readme",
   "devDependencies": {
+    "@babel/preset-react": "^7.0.0",
     "clean-webpack-plugin": "^2.0.1",
     "css-loader": "^2.1.1",
     "csv-loader": "^3.0.2",
@@ -34,6 +35,8 @@
     "xml-loader": "^1.2.1"
   },
   "dependencies": {
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   }
 }

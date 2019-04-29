@@ -38,17 +38,21 @@ module.exports = {
 
 ## 管理资源
 
-loader
+loader：预处理文件
 
 - 引入 CSS
 
-```bash
-npm install --save-dev style-loader css-loader # 目的：可以在 js 模块中，import 一个 css 文件
-```
+  ```bash
+  npm install --save-dev style-loader css-loader # 目的：可以在 js 模块中，import 一个 css 文件
+  ```
 
 - 加载 images 图像
 - 加载 fonts 字体
 - 加载数据
+
+- babel-loader
+  
+  在import或加载模块时，对es6代码进行预处理，es6语法转化为es5语法。
 
 ## 管理输出
 

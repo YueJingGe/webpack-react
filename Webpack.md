@@ -51,8 +51,8 @@ loader：预处理文件
 - 加载数据
 
 - babel-loader
-  
-  在import或加载模块时，对es6代码进行预处理，es6语法转化为es5语法。
+
+  在 import 或加载模块时，对 es6 代码进行预处理，es6 语法转化为 es5 语法。
 
 ## 管理输出
 
@@ -99,25 +99,28 @@ common.js、webpack.dev.js、webpack.pro.js
 ## 代码分离
 
 防止重复：
+
 ```js
 optimization: {
   splitChunks: {
-    chunks: 'all'
+    chunks: "all";
   }
 }
 ```
+
 动态导入：
+
 ```js
-import(/* webpackChunkName: "lodash" */ 'lodash')
+import(/* webpackChunkName: "lodash" */ "lodash");
 ```
 
-> 结合不同的框架有不同的解决方案。比如react：https://reacttraining.com/react-router/web/guides/code-splitting
+> 结合不同的框架有不同的解决方案。比如 react：https://reacttraining.com/react-router/web/guides/code-splitting
 
 ## 缓存
 
 目的：webpack 编译生成的文件能够被客户端缓存，而在文件内容变化后，能够请求到新的文件。
 
-方法：定义输出文件的名称，[hash]会根据资源内容创建出唯一hash，当资源内容发生变化的时候，[hash]也会发生变化
+方法：定义输出文件的名称，[hash]会根据资源内容创建出唯一 hash，当资源内容发生变化的时候，[hash]也会发生变化
 
 `filename: '[name].[hash].js'`
 
@@ -130,3 +133,74 @@ webpack 是一个模块打包工具；例如，Browserify 或 Brunch。
 任务执行工具用来自动化处理常见的开发任务，例如，lint(代码检测)、build(构建)、test(测试)
 
 打包工具帮助你取得准备用于部署的 JavaScript 和 stylesheet，将它们转换为适合浏览器的可用格式。例如，可以通过 压缩、分离 chunk 和 惰性加载 我们的 JavaScript 来提高性能。
+
+## babel
+
+### 作用
+
+JavaScript 编译器
+
+1. 在旧的浏览器环境中，将 ES6 以上的代码转换为向后兼容的 JavaScript 代码。
+2. 转换 JSX 语法
+
+### babel-core
+
+有什么用：有些新语法在低版本的 js 中是不存在的，比如：箭头函数、rest 参数、函数默认值等，只能通过将代码转换成 ast，然后再转为低版本的 js。
+
+什么时候用：某些代码需要调用 Babel 的 API 进行转码时，就要使用 babel-core 模块。
+
+### babel-polyfill
+
+### @babel/preset-env
+
+### @babel/preset-react
+
+## Eslint
+
+JavaScript 代码检测工具
+
+### webpack 中配置： `eslint-loader`
+
+```js
+{
+  enforce: "pre",
+  test: /\.js$/,
+  exclude: /node_modules/,
+  loader: "eslint-loader"
+}
+```
+
+#### 解决import报错
+
+`Parsing error: The keyword 'import' is reserved`
+
+`.eslintrc` 文件中配置 `"parser": "babel-eslint"`
+
+#### 解决html报错
+
+`npm install --save-dev eslint-plugin-html`
+
+`.eslintrc` 文件中配置 `"plugins": ["html"]`
+
+#### 关于react、es6配置
+
+```js
+"parserOptions": {
+  "sourceType": "module",
+  "ecmaFeatures": {
+    "jsx": true
+  }
+}
+```
+
+### 单独配置：`eslint --init`
+
+```bash
+? How would you like to configure ESLint? Use a popular style guide
+? Which style guide do you want to follow? Airbnb (https://github.com/airbnb/javascript)
+? Do you use React? No
+? What format do you want your config file to be in? JavaScript
+? Would you like to install them now with npm? Yes
+```
+
+

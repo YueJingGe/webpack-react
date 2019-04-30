@@ -1,22 +1,3 @@
-## babel
-
-### 作用
-
-JavaScript 编译器
-
-1. 在旧的浏览器环境中，将 ES6 以上的代码转换为向后兼容的 JavaScript 代码。
-2. 转换 JSX 语法
-
-### babel-core
-
-有什么用：有些新语法在低版本的 js 中是不存在的，比如：箭头函数、rest 参数、函数默认值等，只能通过将代码转换成 ast，然后再转为低版本的 js。
-
-什么时候用：某些代码需要调用 Babel 的 API 进行转码时，就要使用 babel-core 模块。
-
-### babel-polyfill
-### @babel/preset-env 
-### @babel/preset-react
-
 ## react
 
 ### index.js 文件
@@ -91,16 +72,3 @@ plugins: [
 ## react-router
 
 `npm install react-router-dom`
-
-
-## Eslint
-
-`eslint --init`
-
-```bash
-? How would you like to configure ESLint? Use a popular style guide
-? Which style guide do you want to follow? Airbnb (https://github.com/airbnb/javascript)
-? Do you use React? No
-? What format do you want your config file to be in? JavaScript
-? Would you like to install them now with npm? Yes
-```

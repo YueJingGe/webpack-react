@@ -90,3 +90,17 @@ plugins: [
 
 ## react-router
 
+`npm install react-router-dom`
+
+
+## Eslint
+
+`eslint --init`
+
+```bash
+? How would you like to configure ESLint? Use a popular style guide
+? Which style guide do you want to follow? Airbnb (https://github.com/airbnb/javascript)
+? Do you use React? No
+? What format do you want your config file to be in? JavaScript
+? Would you like to install them now with npm? Yes
+```

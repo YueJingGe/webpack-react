@@ -44,9 +44,9 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"]
-      }, // 所有以 .css 结尾的文件都被提供给 style-loader 和 css-loader
+        test: /\.(css|less)$/,
+        use: ["style-loader", "css-loader", "less-loader"]
+      }, // 所有以 .css 结尾的文件都被提供给 style-loader 和 css-loader 以及 less-loader
       {
         test: /\.(jpg|png|gif|svg)$/,
         use: ["file-loader"]

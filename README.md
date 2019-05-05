@@ -5,6 +5,7 @@
 # webpack
 
 ## 区分命令
+
 ```bash
 npm init -y  # 跳过回答问题，直接生成默认的 package.json
 npm install webpack webpack-cli --save-dev # --save-dev 在package文件的devDependencies节点写入依赖，生产环境也要使用
@@ -173,19 +174,19 @@ JavaScript 代码检测工具
 }
 ```
 
-### 解决import报错
+### 解决 import 报错
 
 `Parsing error: The keyword 'import' is reserved`
 
 `.eslintrc` 文件中配置 `"parser": "babel-eslint"`
 
-### 解决html报错
+### 解决 html 报错
 
 `npm install --save-dev eslint-plugin-html`
 
 `.eslintrc` 文件中配置 `"plugins": ["html"]`
 
-### 关于react、es6配置
+### 关于 react、es6 配置
 
 ```js
 "parserOptions": {
@@ -280,3 +281,56 @@ plugins: [
 # react-router
 
 `npm install react-router-dom`
+
+## browserHistory 刷新页面 404
+
+`Cannot GET /todo`
+
+解决：webpack 中配置`historyApiFallback: true`
+
+```js
+devServer: {
+  historyApiFallback: true;
+}
+```
+
+## import 编译 less 失败报错
+
+```
+ERROR in ./src/components/Todo/index.less 1:0
+Module parse failed: Unexpected token (1:0)
+You may need an appropriate loader to handle this file type.
+> .todo-container{
+|   width: 100%;
+| }
+ @ ./src/components/Todo/index.js 20:0-22
+ @ ./src/App.js
+ @ ./src/index.js
+```
+
+解决：
+
+```js
+module: {
+  rules: [
+    {
+      test: /\.(css|less)$/,
+      use: ["style-loader", "css-loader", "less-loader"]
+    }
+  ];
+}
+```
+
+报错‘less’找不到：
+
+```
+Module build failed (from ./node_modules/less-loader/dist/cjs.js):
+Error: Cannot find module 'less'
+```
+
+原因： `less-loader` 对 `less` 有依赖
+
+解决：安装 `less`
+
+# 组件库 ant design
+

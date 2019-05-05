@@ -39,7 +39,10 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-react", "@babel/preset-env"]
+            presets: ["@babel/preset-react", "@babel/preset-env"],
+            plugins: [
+              "@babel/plugin-proposal-class-properties" // 使用属性初始化程序语法声明的属性和类属性
+            ] 
           }
         }
       },

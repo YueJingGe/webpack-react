@@ -334,3 +334,35 @@ Error: Cannot find module 'less'
 
 # 组件库 ant design
 
+# redux
+
+`npm install --save redux react-redux`
+
+
+
+# 报错 syntax 'classProperties' isn't currently enabled
+
+安装插件：
+
+`npm install --save-dev @babel/plugin-proposal-class-properties`
+
+此插件转换静态类属性以及使用属性初始化程序语法声明的属性。
+
+.babelrc 文件中配置：
+
+```js
+{
+  "plugins": ["@babel/plugin-proposal-class-properties"]
+}
+```
+
+# 使用es6类属性时，eslint报Parsing error: Unexpected token =
+
+```js
+onPressEnter = e => {
+  console.log(e.target.value);
+};
+```
+安装：`npm install eslint babel-eslint --save-dev`
+解决：.eslintrc文件中配置 `"parser": "babel-eslint"`
+

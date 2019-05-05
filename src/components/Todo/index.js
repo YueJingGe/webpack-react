@@ -9,7 +9,6 @@ class Todo extends React.Component{
     return <div className="todo-container">
       <header>Todo List</header>
       <MyInput/>
-      <Total/>
       <TodoList/>
     </div>
   }

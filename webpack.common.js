@@ -9,6 +9,7 @@ module.exports = {
   },
   output: {
     filename: "[name].[hash].js",
+    chunkFilename:'[name].js',// 设置按需加载后的chunk名字
     path: path.resolve(__dirname, "dist")
   },
   plugins: [
@@ -41,6 +42,7 @@ module.exports = {
           options: {
             presets: ["@babel/preset-react", "@babel/preset-env"],
             plugins: [
+              "@babel/plugin-syntax-dynamic-import", // 支持动态的import
               "@babel/plugin-proposal-class-properties" // 使用属性初始化程序语法声明的属性和类属性
             ] 
           }

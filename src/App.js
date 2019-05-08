@@ -1,10 +1,19 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Menu, Icon } from 'antd';
-import Home from "./components/Home";
-import Todo from "./components/Todo";
+import Loadable from 'react-loadable';
 import "antd/dist/antd.css";
 import "./index.less";
+
+const Loading = () => <div>loading...</div>;
+
+const LazyLoad = loader => Loadable({
+  loader,
+  loading:Loading,
+})
+
+const Home = LazyLoad(()=> import(/* webpackChunkName: "Home" */ './components/Home'));
+const Todo = LazyLoad(() => import(/* webpackChunkName: "Todo" */ './components/Todo'));
 
 function App() {
   return (

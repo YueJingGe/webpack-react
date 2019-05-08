@@ -1,6 +1,5 @@
 import React from 'react';
 import MyInput from './MyInput';
-import Total from './Total';
 import TodoList from './TodoList';
 import './index.less';
 

@@ -338,7 +338,13 @@ Error: Cannot find module 'less'
 
 `npm install --save redux react-redux`
 
+- react-redux
 
+  Provider、connect(mapStateToProps、mapDispatchToProps)
+
+- redux
+
+  createStore
 
 # 报错 syntax 'classProperties' isn't currently enabled
 
@@ -356,13 +362,67 @@ Error: Cannot find module 'less'
 }
 ```
 
-# 使用es6类属性时，eslint报Parsing error: Unexpected token =
+# 使用 es6 类属性时，eslint 报 Parsing error: Unexpected token =
 
 ```js
 onPressEnter = e => {
   console.log(e.target.value);
 };
 ```
-安装：`npm install eslint babel-eslint --save-dev`
-解决：.eslintrc文件中配置 `"parser": "babel-eslint"`
 
+安装：`npm install eslint babel-eslint --save-dev`
+解决：.eslintrc 文件中配置 `"parser": "babel-eslint"`
+
+# 按需加载
+
+## webpack 按需加载
+
+配置文件：
+
+```js
+output: {
+  chunkFilename:'[name].js',// 用来给拆分后的chunk们起名字的配置项
+}
+```
+- webpack中output的设置并不决定是否拆分代码
+- 拆分代码的决定因素在import语法上
+- webpack在扫描到代码中有import语法的时候，才决定执行拆分代码
+
+## react 路由按需加载 react-loadable
+
+```js
+import Loadable from 'react-loadable';
+const Loading = () => <div>loading...</div>
+
+const Home = Loadable({
+  loader: () => import('./components/Home'),
+  loading: Loading
+});
+const Todo = Loadable({
+  loader: () => import('./components/Todo'),
+  loading: Loading
+});
+```
+封装LazyLoad组件：
+```js
+const LazyLoad = (path)=>{
+  return Loadable({
+    loader: () => import(path),
+    loading: Loading,
+  })
+}
+```
+报错：Critical dependency: the request of a dependency is an expression
+
+更改LazyLoad组件：
+```js
+const LazyLoad = loader => Loadable({
+  loader,
+  loading:Loading,
+})
+```
+使用：
+```js
+const Home = LazyLoad(()=> import(/* webpackChunkName: "Home" */ './components/Home'));
+const Todo = LazyLoad(() => import(/* webpackChunkName: "Todo" */ './components/Todo'));
+```

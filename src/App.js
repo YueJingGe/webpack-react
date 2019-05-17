@@ -1,18 +1,24 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Menu, Icon } from 'antd';
-import Loadable from 'react-loadable';
 import "./index.less";
 
 const Loading = () => <div>loading...</div>;
 
-const LazyLoad = loader => Loadable({
-  loader,
-  loading:Loading,
-})
+function LazyLoad(handle) {
+  const OtherComponent = lazy(handle);
+  return function MyComponent() {
+    return (
+      <Suspense fallback={<Loading />}>
+        <OtherComponent />
+      </Suspense>
+    );
+  }
+}
 
 const Home = LazyLoad(()=> import(/* webpackChunkName: "Home" */ './components/Home'));
 const Todo = LazyLoad(() => import(/* webpackChunkName: "Todo" */ './components/Todo'));
+const TestReact = LazyLoad(() => import(/* webpackChunkName: "TestReact" */ './components/TestReact'));
 
 function App() {
   return (
@@ -30,9 +36,16 @@ function App() {
             Todo
           </Link>
         </Menu.Item>
+        <Menu.Item key="testreact">
+          <Link to="/testreact">
+            <Icon type="ordered-list" />
+            React 新特性试验
+          </Link>
+        </Menu.Item>
       </Menu>
       <Route path="/" exact component={Home} />
       <Route path="/todo" exact component={Todo} />
+      <Route path="/testreact" exact component={TestReact} />
     </Router>
   );
 }

@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Menu, Icon } from 'antd';
 import Loadable from 'react-loadable';
-import "antd/dist/antd.css";
 import "./index.less";
 
 const Loading = () => <div>loading...</div>;

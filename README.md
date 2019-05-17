@@ -334,6 +334,65 @@ Error: Cannot find module 'less'
 
 # 组件库 ant design
 
+## 按需加载组件
+
+使用 babel 模块化导入的插件：`npm install babel-plugin-import --save-dev`
+
+在 webpack 中配置 bable-loader：
+
+```js
+{
+  module: {
+    rules: [
+      {
+        use: {
+          loader: "babel-loader",
+          options: {
+            // 重点在此 style可设置为 css，但是配置主题时需要使用less文件，所以将其配置为true
+            plugins: ["import", { libraryName: "antd", style: true }]
+          }
+        }
+      }
+    ];
+  }
+}
+```
+
+## 定制主题
+
+配置 less-loader 的 options 选项
+
+```js
+{
+  module: {
+    rules: [
+      {
+        test: /\.(css|less)$/,
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader"
+          },
+          {
+            loader: "less-loader",
+            options: {
+              modifyVars: {
+                "primary-color": "#1DA57A",
+                "link-color": "#1DA57A",
+                "border-radius-base": "2px"
+              },
+              javascriptEnabled: true
+            }
+          }
+        ]
+      }
+    ];
+  }
+}
+```
+
 # redux
 
 `npm install --save redux react-redux`
@@ -384,45 +443,57 @@ output: {
   chunkFilename:'[name].js',// 用来给拆分后的chunk们起名字的配置项
 }
 ```
-- webpack中output的设置并不决定是否拆分代码
-- 拆分代码的决定因素在import语法上
-- webpack在扫描到代码中有import语法的时候，才决定执行拆分代码
+
+- webpack 中 output 的设置并不决定是否拆分代码
+- 拆分代码的决定因素在 import 语法上
+- webpack 在扫描到代码中有 import 语法的时候，才决定执行拆分代码
 
 ## react 路由按需加载 react-loadable
 
 ```js
-import Loadable from 'react-loadable';
-const Loading = () => <div>loading...</div>
+import Loadable from "react-loadable";
+const Loading = () => <div>loading...</div>;
 
 const Home = Loadable({
-  loader: () => import('./components/Home'),
+  loader: () => import("./components/Home"),
   loading: Loading
 });
 const Todo = Loadable({
-  loader: () => import('./components/Todo'),
+  loader: () => import("./components/Todo"),
   loading: Loading
 });
 ```
-封装LazyLoad组件：
+
+封装 LazyLoad 组件：
+
 ```js
-const LazyLoad = (path)=>{
+const LazyLoad = path => {
   return Loadable({
     loader: () => import(path),
-    loading: Loading,
-  })
-}
+    loading: Loading
+  });
+};
 ```
+
 报错：Critical dependency: the request of a dependency is an expression
 
-更改LazyLoad组件：
+更改 LazyLoad 组件：
+
 ```js
-const LazyLoad = loader => Loadable({
-  loader,
-  loading:Loading,
-})
+const LazyLoad = loader =>
+  Loadable({
+    loader,
+    loading: Loading
+  });
 ```
+
 使用：
+
 ```js
-const Home = LazyLoad(()=> import(/* webpackChunkName: "Home" */ './components/Home'));
-const Todo = LazyLoad(() => import(/* webpackChunkName: "Todo" */ './components/Todo'));
+const Home = LazyLoad(() =>
+  import(/* webpackChunkName: "Home" */ "./components/Home")
+);
+const Todo = LazyLoad(() =>
+  import(/* webpackChunkName: "Todo" */ "./components/Todo")
+);
 ```

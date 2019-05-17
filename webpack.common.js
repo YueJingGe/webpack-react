@@ -9,7 +9,7 @@ module.exports = {
   },
   output: {
     filename: "[name].[hash].js",
-    chunkFilename:'[name].js',// 设置按需加载后的chunk名字
+    chunkFilename: "[name].js", // 设置按需加载后的chunk名字
     path: path.resolve(__dirname, "dist")
   },
   plugins: [
@@ -43,14 +43,37 @@ module.exports = {
             presets: ["@babel/preset-react", "@babel/preset-env"],
             plugins: [
               "@babel/plugin-syntax-dynamic-import", // 支持动态的import
-              "@babel/plugin-proposal-class-properties" // 使用属性初始化程序语法声明的属性和类属性
-            ] 
+              "@babel/plugin-proposal-class-properties", // 使用属性初始化程序语法声明的属性和类属性
+              [
+                "import",
+                {
+                  libraryName: "antd",
+                  style: true
+                }
+              ]
+            ]
           }
         }
       },
       {
         test: /\.(css|less)$/,
-        use: ["style-loader", "css-loader", "less-loader"]
+        use: [
+          {
+            loader: "style-loader"
+          },{
+            loader: "css-loader"
+          },{
+            loader: "less-loader",
+            options: {
+              modifyVars: {
+                "primary-color": "#1DA57A",
+                "link-color": "#1DA57A",
+                "border-radius-base": "2px"
+              },
+              javascriptEnabled: true
+            }
+          }
+        ]
       }, // 所有以 .css 结尾的文件都被提供给 style-loader 和 css-loader 以及 less-loader
       {
         test: /\.(jpg|png|gif|svg)$/,

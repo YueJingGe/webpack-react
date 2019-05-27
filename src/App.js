@@ -19,6 +19,7 @@ function LazyLoad(handle) {
 const Home = LazyLoad(()=> import(/* webpackChunkName: "Home" */ './components/Home'));
 const Todo = LazyLoad(() => import(/* webpackChunkName: "Todo" */ './components/Todo'));
 const TestReact = LazyLoad(() => import(/* webpackChunkName: "TestReact" */ './components/TestReact'));
+const GeneralCom = LazyLoad(() => import(/* webpackChunkName: "GeneralCom" */ './components/GeneralCom'));
 
 function App() {
   return (
@@ -42,10 +43,17 @@ function App() {
             React 新特性试验
           </Link>
         </Menu.Item>
+        <Menu.Item key="generalcom">
+          <Link to="/generalcom">
+            <Icon type="ordered-list" />
+            通用组件
+          </Link>
+        </Menu.Item>
       </Menu>
       <Route path="/" exact component={Home} />
       <Route path="/todo" exact component={Todo} />
       <Route path="/testreact" exact component={TestReact} />
+      <Route path="/generalcom" exact component={GeneralCom} />
     </Router>
   );
 }

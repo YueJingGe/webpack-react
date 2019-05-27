@@ -497,3 +497,7 @@ const Todo = LazyLoad(() =>
   import(/* webpackChunkName: "Todo" */ "./components/Todo")
 );
 ```
+
+# npm run start 报错：webpack getaddrinfo ENOTFOUND localhost
+
+解决方案：在 host 文件中添加 127.0.0.1 localhost

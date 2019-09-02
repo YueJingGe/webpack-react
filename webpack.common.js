@@ -8,9 +8,14 @@ module.exports = {
     app: "./src/index.js"
   },
   output: {
+    /**
+     * 使用 hash 作为 bundle 文件的名称。
+     * 这样在文件内容修改时，会计算出新的 hash，浏览器会使用新的名称加载文件，从而使缓存无效。
+     * 但是，有些时候某些内容明显没有修改，但是某些 hash 还是会改变。这是因为，注入的 runtime 和 manifest 在每次构建后都会发生变化。
+     */
     filename: "[name].[hash].js",
     chunkFilename: "[name].js", // 设置按需加载后的chunk名字
-    path: path.resolve(__dirname, "dist")
+    path: path.resolve(__dirname, "dist") // resolver 是一个库(library)，用于帮助找到模块的绝对路径
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -30,6 +35,12 @@ module.exports = {
         } // 将第三方库（例如 lodash 或 react）提取到单独的 vendor chunk 文件中
       }
     }, // 代码分离，防止重复
+    /**
+     * runtime，以及伴随的 manifest 数据，用于管理所有模块的交互。
+     * 主要是指：在浏览器运行过程中，webpack 用来连接模块化应用程序所需的所有代码。
+     * 它包含：在模块交互时，连接模块所需的加载和解析逻辑。
+     * 包括：已经加载到浏览器中的连接模块逻辑，以及尚未加载模块的延迟加载逻辑。
+     */
     runtimeChunk: "single" // 将 runtime 代码拆分为一个单独的 chunk
   },
   module: {
@@ -70,7 +81,7 @@ module.exports = {
                 "link-color": "#1DA57A",
                 "border-radius-base": "2px"
               },
-              javascriptEnabled: true
+              javascriptEnabled: true // 很重要
             }
           }
         ]

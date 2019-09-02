@@ -10,5 +10,8 @@ module.exports = merge(common, {
     hot: true,
     historyApiFallback: true //  使用HTML5 History API 时，使用 index.html 页面替代任意的 404 响应
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()]
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.NamedModulesPlugin() // 不论是否添加任何新的本地依赖，对于前后两次构建，vendor hash 都应该保持一致
+  ]
 });

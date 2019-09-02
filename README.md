@@ -2,7 +2,9 @@
 
 [[TOC]]
 
-# webpack
+# 初始化 npm
+
+npm init
 
 ## 区分命令
 
@@ -17,15 +19,27 @@ npx webpack --config webpack.config.js # --config 文件名 表示：可以根�
 npm run build # 代替 npx 命令
 ```
 
-## 使用 weakpack 管理脚本
+# webpack
 
-原因：`<script>` 标签之间存在隐式依赖关系，手动处理这种依赖很容易出错。
+- 安装 webpack
 
-## bundle
+  - 使用 weakpack 管理脚本
 
-将 `src/index.js` 作为起点，生成 `dist/main.js` 作为输出
+    原因：`<script>` 标签之间存在隐式依赖关系，手动处理这种依赖很容易出错。
 
-## 使用配置文件
+- 安装 webpack-cli
+
+  如果你使用 webpack v4+ 版本，你还需要安装 CLI。
+
+  此工具用于在命令行中运行 webpack。
+
+  比如：npx webpack (以 src/index.js 作为入口起点，生成 dist/main.js 作为输出)
+
+  npx 命令：可以运行 package 中的 webpack 二进制文件 即：./node_modules/.bin/webpack 文件
+
+- 初始化 index.html、index.js 文件
+
+# 使用配置文件 webpack.config.js
 
 webpack.config.js
 
@@ -40,6 +54,16 @@ module.exports = {
 }
 ```
 
+优点：
+
+    比 CLI 更强大，更灵活
+
+    npx webpack = npx webpack --config webpack.config.js = npm run build
+
+## bundle
+
+将 `src/index.js` 作为起点，生成 `dist/main.js` 作为输出
+
 ## 管理资源
 
 loader：预处理文件
@@ -50,7 +74,14 @@ loader：预处理文件
   npm install --save-dev style-loader css-loader # 目的：可以在 js 模块中，import 一个 css 文件
   ```
 
+- Less
+
+  style-loader css-loader less-loader
+
 - 加载 images 图像
+
+  file-loder image-webpack-loader(图片压缩，很必要)
+
 - 加载 fonts 字体
 - 加载数据
 
@@ -64,15 +95,23 @@ loader：预处理文件
 
 `html-webpack-plugin`：自动生成 index.html，并且引入所有的新生成的 bundle；
 
-`clean-webpack-plugin`：清理 /dist 文件夹
+`clean-webpack-plugin`：构建之前 清理 /dist 文件夹
 
 ## 开发环境
 
-`mode: "devewlopment"`：设置开发环境，确保 bundle 是未压缩版本
+- mode
 
-`devtool: "inline-source-map"`：追踪 error 和 warning 在源代码中的位置，用于开发环境
+  `mode: "devewlopment"`：设置开发环境，确保 bundle 是未压缩版本
 
-`webpack-dev-server`：在编译代码后自动重新加载
+- 使用 Source Map
+
+  一般情况下，设置了 mode 之后 Source Map 就不需要设置了
+
+  `devtool: "inline-source-map"`：追踪 error 和 warning 在源代码中的位置，用于开发环境
+
+- webpack-dev-server
+
+      1.实时重新加载页面；2.将 dist 目录下的文件 serve 到 localhost:8080 下；3.浏览器自动加载页面
 
 ## 模块热替换
 
@@ -80,9 +119,9 @@ loader：预处理文件
 
 通过插件 `new webpack.HotModuleReplacementPlugin()` 来启用 HMR
 
-## tree shaking
+## minification(代码压缩) 和 tree shaking
 
-移除未引用的代码。
+通过设置 mode 为 production 来启动代码压缩和 tree shaking（删除未引用的代码）
 
 > 摇动这棵树：你可以将应用程序想象成一棵树。绿色表示实际用到的 source code(源码) 和 library(库)，是树上活的树叶。灰色表示未引用代码，是秋天树上枯萎的树叶。为了除去死去的树叶，你必须摇动这棵树，使它们落下。
 
@@ -91,6 +130,11 @@ loader：预处理文件
 `mode: "production"`：压缩输出结果，将 mode 设置为生产环境，
 
 ## 区分环境：生产环境
+
+development(开发环境) 和 production(生产环境) 这两个环境下的构建目标存在着巨大差异。
+在开发环境中，我们需要：强大的 source map 和一个有着 live reloading(实时重新加载) 或 hot module replacement(热模块替换) 能力的 localhost server。
+而生产环境目标则转移至其他方面，关注点在于压缩 bundle、更轻量的 source map、资源优化等，
+通过这些优化方式改善加载时间。
 
 `merge(common,{})`
 
@@ -102,7 +146,7 @@ common.js、webpack.dev.js、webpack.pro.js
 
 ## 代码分离
 
-防止重复：
+防止重复：splitChunks
 
 ```js
 optimization: {
@@ -112,21 +156,49 @@ optimization: {
 }
 ```
 
-动态导入：
+动态导入：chunkFilename
 
 ```js
-import(/* webpackChunkName: "lodash" */ "lodash");
+const { default: _ } = await import(/* webpackChunkName: "lodash" */ "lodash");
 ```
 
 > 结合不同的框架有不同的解决方案。比如 react：https://reacttraining.com/react-router/web/guides/code-splitting
 
 ## 缓存
 
-目的：webpack 编译生成的文件能够被客户端缓存，而在文件内容变化后，能够请求到新的文件。
+- 输出文件名 [name].[hash].js
 
-方法：定义输出文件的名称，[hash]会根据资源内容创建出唯一 hash，当资源内容发生变化的时候，[hash]也会发生变化
+  目的：webpack 编译生成的文件能够被客户端缓存，而在文件内容变化后，能够请求到新的文件。
+
+  方法：定义输出文件的名称，[hash]会根据资源内容创建出唯一 hash，当资源内容发生变化的时候，[hash]也会发生变化
 
 `filename: '[name].[hash].js'`
+
+- 提取引导模板 runtimeChunk
+
+      	将 runtime 代码分离到一个单独的 chunk 中
+
+- 提取第三方库 cacheGroups
+
+  例如 lodash 或 react 提取到单独的 vendor chunk 文件中
+
+- 模块标识符 HashedModuleIdsPlugin
+
+      	没有效果。。❌ （忽略）
+
+## 性能
+
+- 对最少数量的模块使用 loader
+
+  include / exclude
+
+## 公共路径 publicPath
+
+    暂时还不知道什么用途？！
+
+## 外部扩展 externals
+
+    暂时可以不使用
 
 ## 最后
 
@@ -209,6 +281,8 @@ JavaScript 代码检测工具
 
 # react
 
+- 安装 react、react-dom
+
 ## index.js 文件
 
 ```js
@@ -216,6 +290,118 @@ import React from "react";
 import ReactDom from "react-dom";
 
 ReactDom.render(<div>hello,react</div>, document.getElementById("root"));
+```
+
+- 解析 jsx babel-loader
+
+  ```js
+  {
+    test: /\.m?js$/,
+    exclude: /(node_modules|bower_components)/,
+    use: {
+      loader: "babel-loader",
+      options: {
+        presets: ["@babel/preset-react"] // 重要
+      }
+    }
+  }
+  ```
+
+## 配置路由 react-router-dom
+
+具体参考官网：https://reacttraining.com/react-router/ 进行配置
+
+注意路由的写法 '/home/' 这里最后的 '/' 记得去掉，不要带上，否则会出错。
+
+- 解决 BrowserRouter 刷新 404 问题
+
+  historyApiFallback: true
+
+## 配置路由按需加载 react-loadable
+
+- 解决动态导入的问题 @babel/plugin-syntax-dynamic-import
+
+  报错：Support for the experimental syntax 'dynamicImport' isn't currently enabled (8:17)
+
+  ```js
+  {
+    test: /\.m?js$/,
+    exclude: /(node_modules|bower_components)/,
+    use: {
+      loader: "babel-loader",
+      options: {
+        presets: ["@babel/preset-react"],
+        plugins: ["@babel/plugin-syntax-dynamic-import"] // 重点在此
+      }
+    }
+  }
+  ```
+
+## 配置组件 antd
+
+- 按需加载 babel-plugin-import
+
+  优点：只需从 antd 引入模块即可，无需单独引入样式；babel-plugin-import 会帮助你加载 JS 和 CSS
+
+  使用 babel 模块化导入的插件：`npm install babel-plugin-import --save-dev`
+
+  在 webpack 中配置 bable-loader：
+
+  ```js
+  {
+    module: {
+      rules: [
+        {
+          use: {
+            loader: "babel-loader",
+            options: {
+              // 重点在此 style可设置为 css，但是配置主题时需要使用less文件，所以将其配置为true
+              plugins: ["import", { libraryName: "antd", style: true }]
+            }
+          }
+        }
+      ];
+    }
+  }
+  ```
+
+- 引入 antd 按需加载之后报错 .bezierEasingMixin(); ^ Inline JavaScript is not enabled.
+
+  如果使用的 webpack 那就在 webpack 的配置中找到 less 的配置，在选项中添加 javascriptEnabled: true
+
+- 定制主题 使用 less 提供的 modifyVars 的方式进行覆盖变量
+
+配置 less-loader 的 options 选项
+
+```js
+{
+  module: {
+    rules: [
+      {
+        test: /\.(css|less)$/,
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader"
+          },
+          {
+            loader: "less-loader",
+            options: {
+              modifyVars: {
+                "primary-color": "#1DA57A",
+                "link-color": "#1DA57A",
+                "border-radius-base": "2px"
+              },
+              javascriptEnabled: true
+            }
+          }
+        ]
+      }
+    ];
+  }
+}
 ```
 
 ### 报错一
@@ -331,67 +517,6 @@ Error: Cannot find module 'less'
 原因： `less-loader` 对 `less` 有依赖
 
 解决：安装 `less`
-
-# 组件库 ant design
-
-## 按需加载组件
-
-使用 babel 模块化导入的插件：`npm install babel-plugin-import --save-dev`
-
-在 webpack 中配置 bable-loader：
-
-```js
-{
-  module: {
-    rules: [
-      {
-        use: {
-          loader: "babel-loader",
-          options: {
-            // 重点在此 style可设置为 css，但是配置主题时需要使用less文件，所以将其配置为true
-            plugins: ["import", { libraryName: "antd", style: true }]
-          }
-        }
-      }
-    ];
-  }
-}
-```
-
-## 定制主题
-
-配置 less-loader 的 options 选项
-
-```js
-{
-  module: {
-    rules: [
-      {
-        test: /\.(css|less)$/,
-        use: [
-          {
-            loader: "style-loader"
-          },
-          {
-            loader: "css-loader"
-          },
-          {
-            loader: "less-loader",
-            options: {
-              modifyVars: {
-                "primary-color": "#1DA57A",
-                "link-color": "#1DA57A",
-                "border-radius-base": "2px"
-              },
-              javascriptEnabled: true
-            }
-          }
-        ]
-      }
-    ];
-  }
-}
-```
 
 # redux
 

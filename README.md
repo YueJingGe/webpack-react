@@ -626,3 +626,10 @@ const Todo = LazyLoad(() =>
 # npm run start 报错：webpack getaddrinfo ENOTFOUND localhost
 
 解决方案：在 host 文件中添加 127.0.0.1 localhost
+
+# webpack 配置别名 alias 需要注意
+
+  - path 配置为绝对路径
+  - 配置 alias
+  - 配置 tsconfig 中的 baseUrl 和 paths
+

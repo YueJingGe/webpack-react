@@ -633,3 +633,44 @@ const Todo = LazyLoad(() =>
   - 配置 alias
   - 配置 tsconfig 中的 baseUrl 和 paths
 
+# local css 模块化不生效
+
+描述：直接在样式文件最外层暴露 footer 不生效
+
+例子：
+webpack 配置：
+
+```js
+{
+	loader: 'css-loader',
+	options: {
+		importLoaders: 1,
+		modules: true,
+		localIdentName: '[path][name]__[local]--[hash:base64:5]'
+	},
+},
+```
+
+页面内使用：
+
+```jsx
+import styles from './index.module.less';
+<div className={style.container}></div>
+<footer></footer>
+```
+
+index.module.less 样式文件：
+
+```less
+// .container 生效
+.container {
+}
+// footer没有被模块化
+footer {
+}
+```
+
+原因：
+
+local 语法 :local(.className) 可以被用来在局部作用域中声明 className。局部的作用域标识符会以模块形式暴露出去。
+

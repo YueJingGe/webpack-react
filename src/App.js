@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { Menu, Icon } from 'antd';
+import { HomeOutlined, OrderedListOutlined } from '@ant-design/icons';
+import { Menu } from 'antd';
 import "./index.less";
 
 const Loading = () => <div>loading...</div>;
@@ -27,25 +28,25 @@ function App() {
       <Menu mode="horizontal">
         <Menu.Item key="mail">
           <Link to="/">
-            <Icon type="home" />
+            <HomeOutlined />
             Home
           </Link>
         </Menu.Item>
         <Menu.Item key="app">
           <Link to="/todo">
-            <Icon type="ordered-list" />
+            <OrderedListOutlined />
             Todo
           </Link>
         </Menu.Item>
         <Menu.Item key="testreact">
           <Link to="/testreact">
-            <Icon type="ordered-list" />
+            <OrderedListOutlined />
             React 新特性试验
           </Link>
         </Menu.Item>
         <Menu.Item key="generalcom">
           <Link to="/generalcom">
-            <Icon type="ordered-list" />
+            <OrderedListOutlined />
             通用组件
           </Link>
         </Menu.Item>

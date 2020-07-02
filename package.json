@@ -44,7 +44,7 @@
     "xml-loader": "^1.2.1"
   },
   "dependencies": {
-    "antd": "^3.16.6",
+    "antd": "^4.4.0",
     "less": "^3.9.0",
     "lodash": "^4.17.11",
     "react": "^16.13.1",

@@ -655,7 +655,7 @@ webpack 配置：
 
 ```jsx
 import styles from './index.module.less';
-<div className={style.container}></div>
+<div className={styles.container}></div>
 <footer></footer>
 ```
 

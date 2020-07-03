@@ -4,8 +4,24 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 const webpack = require("webpack");
 
 module.exports = {
+  resolve: {
+    alias: {
+      // 别名
+      "@src": path.resolve("src"),
+      "@components": path.resolve("src/components"),
+      "@pages": path.resolve("src/pages"),
+    },
+  },
+  // 将不怎么需要更新的第三方库脱离webpack打包，不被打入bundle中，从而减少打包时间
+  // externals: {
+  //   react: "React",
+  //   "react-dom": "ReactDOM",
+  //   "react-router-dom": "ReactRouterDOM",
+  //   "react-redux": "react-redux",
+  //   redux: "redux",
+  // },
   entry: {
-    app: "./src/index.js"
+    app: "./src/index.js",
   },
   output: {
     /**
@@ -15,15 +31,15 @@ module.exports = {
      */
     filename: "[name].[hash].js",
     chunkFilename: "[name].js", // 设置按需加载后的chunk名字
-    path: path.resolve(__dirname, "dist") // resolver 是一个库(library)，用于帮助找到模块的绝对路径
+    path: path.resolve(__dirname, "dist"), // resolver 是一个库(library)，用于帮助找到模块的绝对路径
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: "从零搭建webpack-react",
-      template: "src/assets/index.html"
+      template: "src/assets/index.html",
     }), // 目的：在 dist 文件下生成一个 html 文件，引用所有的新生成的 bundle
-    new webpack.HashedModuleIdsPlugin() // 不论是否添加任何新的本地依赖，对于前后两次构建，vendor hash 都应该保持一致：
+    new webpack.HashedModuleIdsPlugin(), // 不论是否添加任何新的本地依赖，对于前后两次构建，vendor hash 都应该保持一致：
   ],
   optimization: {
     splitChunks: {
@@ -31,9 +47,9 @@ module.exports = {
         vendor: {
           chunks: "all",
           test: /[\\/]node_modules[\\/]/,
-          name: "vendors"
-        } // 将第三方库（例如 lodash 或 react）提取到单独的 vendor chunk 文件中
-      }
+          name: "vendors",
+        }, // 将第三方库（例如 lodash 或 react）提取到单独的 vendor chunk 文件中
+      },
     }, // 代码分离，防止重复
     /**
      * runtime，以及伴随的 manifest 数据，用于管理所有模块的交互。
@@ -41,7 +57,7 @@ module.exports = {
      * 它包含：在模块交互时，连接模块所需的加载和解析逻辑。
      * 包括：已经加载到浏览器中的连接模块逻辑，以及尚未加载模块的延迟加载逻辑。
      */
-    runtimeChunk: "single" // 将 runtime 代码拆分为一个单独的 chunk
+    runtimeChunk: "single", // 将 runtime 代码拆分为一个单独的 chunk
   },
   module: {
     rules: [
@@ -59,49 +75,51 @@ module.exports = {
                 "import",
                 {
                   libraryName: "antd",
-                  style: true
-                }
-              ]
-            ]
-          }
-        }
+                  style: true,
+                },
+              ],
+            ],
+          },
+        },
       },
       {
         test: /\.(css|less)$/,
         use: [
           {
-            loader: "style-loader"
-          },{
-            loader: "css-loader"
-          },{
+            loader: "style-loader",
+          },
+          {
+            loader: "css-loader",
+          },
+          {
             loader: "less-loader",
             options: {
               modifyVars: {
                 "primary-color": "#1DA57A",
                 "link-color": "#1DA57A",
-                "border-radius-base": "2px"
+                "border-radius-base": "2px",
               },
-              javascriptEnabled: true // 很重要
-            }
-          }
-        ]
+              javascriptEnabled: true, // 很重要
+            },
+          },
+        ],
       }, // 所有以 .css 结尾的文件都被提供给 style-loader 和 css-loader 以及 less-loader
       {
         test: /\.(jpg|png|gif|svg)$/,
-        use: ["file-loader"]
+        use: ["file-loader"],
       }, // 加载 images 图像
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: ["file-loader"]
+        use: ["file-loader"],
       }, // 加载 fonts 字体
       {
         test: /\.(csv|tsv)$/,
-        use: ["csv-loader"]
+        use: ["csv-loader"],
       }, // 加载 CSV、TSV
       {
         test: /\.xml$/,
-        use: ["xml-loader"]
-      } // 加载 xml 文件
-    ]
-  }
+        use: ["xml-loader"],
+      }, // 加载 xml 文件
+    ],
+  },
 };

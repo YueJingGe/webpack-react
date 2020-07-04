@@ -11,6 +11,7 @@ module.exports = {
       "@components": path.resolve("src/components"),
       "@pages": path.resolve("src/pages"),
     },
+    extensions: [".tsx", ".ts", ".js"],
   },
   // 将不怎么需要更新的第三方库脱离webpack打包，不被打入bundle中，从而减少打包时间
   // externals: {
@@ -21,7 +22,7 @@ module.exports = {
   //   redux: "redux",
   // },
   entry: {
-    app: "./src/index.js",
+    app: "./src/index.tsx",
   },
   output: {
     /**
@@ -61,6 +62,13 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        use: {
+          loader: "ts-loader",
+        },
+        exclude: /node_modules/,
+      },
       {
         test: /\.m?js$/,
         exclude: /(node_modules|bower_components)/,

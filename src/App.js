@@ -1,6 +1,5 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import "./index.less";
 
 const Loading = () => <div>loading...</div>;
 

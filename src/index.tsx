@@ -4,6 +4,7 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import todoApp from "./reduces";
 import App from "./App";
+import "./index.less";
 
 const store = createStore(todoApp);
 

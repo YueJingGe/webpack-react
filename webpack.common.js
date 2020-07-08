@@ -10,6 +10,8 @@ module.exports = {
       "@src": path.resolve("src"),
       "@components": path.resolve("src/components"),
       "@pages": path.resolve("src/pages"),
+      "@utils": path.resolve("src/utils"),
+      "@server": path.resolve("src/server"),
     },
     extensions: [".tsx", ".ts", ".js"],
   },

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Menu } from "antd";
 
@@ -9,17 +9,14 @@ import {
   MenuFoldOutlined,
 } from "@ant-design/icons";
 
-function Home(props) {
-  console.log(props);
-  
-  const [collapsed, toggleCollapsed] = useState(false);
-  return (
-    <div>
-      <Menu mode="horizontal" defaultSelectedKeys={["mail"]}>
-        <Menu.Item key="mail" icon={<HomeOutlined />}>
-          <Link to="/">Home</Link>
+class Layout extends React.Component {
+  render() {
+    return (
+      <Menu mode="horizontal" defaultSelectedKeys={["home"]}>
+        <Menu.Item key="home" icon={<HomeOutlined />}>
+          <Link to="/home">Home</Link>
         </Menu.Item>
-        <Menu.Item key="app" icon={<OrderedListOutlined />}>
+        <Menu.Item key="todo" icon={<OrderedListOutlined />}>
           <Link to="/todo">Todo</Link>
         </Menu.Item>
         <Menu.Item key="testreact" icon={<OrderedListOutlined />}>
@@ -29,9 +26,8 @@ function Home(props) {
           <Link to="/generalcom">通用组件</Link>
         </Menu.Item>
       </Menu>
-      <div>{props.children}</div>
-    </div>
-  );
+    );
+  }
 }
 
-export default withRouter(Home);
+export default withRouter(Layout);

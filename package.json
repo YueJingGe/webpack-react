@@ -48,6 +48,7 @@
   "dependencies": {
     "@types/node": "^14.0.14",
     "antd": "^4.4.0",
+    "history": "^5.0.0",
     "less": "^3.9.0",
     "lodash": "^4.17.11",
     "px2rem-loader": "^0.1.9",

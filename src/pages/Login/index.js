@@ -1,9 +1,9 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { Form, Input, Button, Checkbox, Divider, message } from "antd";
-import SlideVerification from "../../utils/slideVerification";
+import SlideVerification from "@utils/slideVerification";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { slideCheck, sendSmsCode, codeLogin } from "../../server/request";
+import { slideCheck, sendSmsCode, codeLogin } from "@server/request";
 import "./index.less";
 
 class Login extends React.Component {
@@ -13,9 +13,10 @@ class Login extends React.Component {
     codeText: "获取验证码",
     showSlide: false, // 是否展示滑块
     sending: false, // 是否正在发送中
-    timeEvent: null, //计时器
   };
 
+  timeEvent = null; //计时器
+  
   onRef = (e) => {
     this.GV = e;
   };
@@ -83,7 +84,7 @@ class Login extends React.Component {
     try {
       let { status } = sendSmsCode(params);
       if (status === 200) {
-        this.timeEvent();
+        this.setTimeEvent();
       }
     } catch (error) {
       this.state.curRefForm.setFieldsValue({ result: "" });
@@ -92,7 +93,7 @@ class Login extends React.Component {
   };
 
   // 设置定时器
-  timeEvent = () => {
+  setTimeEvent = () => {
     let timeCount = 60;
     this.setState(
       {
@@ -103,18 +104,17 @@ class Login extends React.Component {
         let codeText = "";
 
         let sending = true;
-        let timeEvent = setInterval(() => {
+        this.timeEvent = setInterval(() => {
           timeCount--;
           codeText = "已发送(" + timeCount + ")";
           if (timeCount === 0) {
-            clearInterval(timeEvent);
-            timeEvent = null;
+            clearInterval(this.timeEvent);
+            this.timeEvent = null;
             codeText = "获取验证码";
             sending = false;
           }
           this.setState({
             sending,
-            timeEvent,
             codeText,
           });
         }, 1000);
@@ -138,11 +138,12 @@ class Login extends React.Component {
     message.success(`用户${data.username}登录成功了`);
     console.log(this.props);
 
-    this.props.history.push("/");
+    this.props.history.push("/layout");
   };
 
-  componentWillUnnount() {
+  componentWillUnmount() {
     clearInterval(this.timeEvent);
+    this.timeEvent = null;
   }
 
   render() {

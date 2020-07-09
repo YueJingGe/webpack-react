@@ -1,10 +1,8 @@
-使用 webpack 从零搭建 react
+# 使用 webpack 从零搭建 react
 
-[[TOC]]
+## 初始化 npm
 
-# 初始化 npm
-
-npm init
+    npm init
 
 ## 区分命令
 

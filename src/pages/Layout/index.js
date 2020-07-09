@@ -5,14 +5,41 @@ import { Menu } from "antd";
 import {
   HomeOutlined,
   OrderedListOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
+  TeamOutlined,
+  GlobalOutlined,
 } from "@ant-design/icons";
 
 class Layout extends React.Component {
+  state = {
+    selectedKeys: ["home"],
+  };
+  componentDidMount() {
+    console.log(this.props.location.pathname);
+    const pathname = this.props.location.pathname;
+    let key = "";
+    if (pathname) {
+      key = pathname.split("/")[1];
+    }
+    this.setState({
+      selectedKeys: [key],
+    });
+  }
+  onSelect = ({ item, key, keyPath, selectedKeys, domEvent }) => {
+    this.setState({
+      selectedKeys,
+    });
+  };
   render() {
+    const { selectedKeys } = this.state;
     return (
-      <Menu mode="horizontal" defaultSelectedKeys={["home"]}>
+      <Menu
+        mode="horizontal"
+        selectedKeys={selectedKeys}
+        onSelect={this.onSelect}
+      >
+        {/* <Menu.Item key="login" icon={<GlobalOutlined />}>
+          <Link to="/login">登录——滑块验证</Link>
+        </Menu.Item> */}
         <Menu.Item key="home" icon={<HomeOutlined />}>
           <Link to="/home">Home</Link>
         </Menu.Item>
@@ -24,6 +51,9 @@ class Layout extends React.Component {
         </Menu.Item>
         <Menu.Item key="generalcom" icon={<OrderedListOutlined />}>
           <Link to="/generalcom">通用组件</Link>
+        </Menu.Item>
+        <Menu.Item key="phonebook" icon={<TeamOutlined />}>
+          <Link to="/phonebook">通讯录——锚点</Link>
         </Menu.Item>
       </Menu>
     );

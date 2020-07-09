@@ -27,6 +27,9 @@ const TestReact = LazyLoad(() =>
 const GeneralCom = LazyLoad(() =>
   import(/* webpackChunkName: "GeneralCom" */ "@components/GeneralCom")
 );
+const PhoneBook = LazyLoad(() =>
+  import(/* webpackChunkName: "PhoneBook" */ "@components/PhoneBook")
+);
 
 function App() {
   return (
@@ -40,6 +43,7 @@ function App() {
           <Route path="/todo" exact component={Todo} />
           <Route path="/testreact" exact component={TestReact} />
           <Route path="/generalcom" exact component={GeneralCom} />
+          <Route path="/phonebook" exact component={PhoneBook} />
           <Redirect from="/layout" to="/home" />
         </Switch>
       </Route>

@@ -1,0 +1,66 @@
+.phone_book_container {
+  width: 100%;
+  height: calc(100% - 48px);
+  overflow: hidden;
+  // 输入框
+  .input_box {
+    width: calc(100% - 60px);
+    margin: 26px 30px 40px 30px;
+  }
+  .phone_book_content {
+    width: 100%;
+    height: calc(100% - 124px);
+    overflow-y: scroll;
+    padding-left: 30px;
+    display: flex;
+    // 左边列表
+    .left {
+      width: calc(100% - 78px);
+      position: relative;
+      .left_top {
+        position: sticky;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        background-color: #fff;
+      }
+      header,
+      .left_top {
+        width: 100%;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        font-size: 28px;
+        color: #adb3bf;
+      }
+      .list_box {
+        > div {
+          width: 100%;
+          height: 80px;
+          display: flex;
+          align-items: center;
+          border-top: 1px solid #f2f4f5;
+          font-size: 28px;
+          color: #3d3f46;
+        }
+      }
+    }
+    //  右边字母表
+    .right {
+      width: 78px;
+      text-align: center;
+      font-size: 24px;
+      color: #004ee6;
+      position: fixed;
+      top: 130px;
+      right: 0;
+      cursor: pointer;
+      .chart_item {
+        margin-bottom: 20px;
+      }
+    }
+    .active_link {
+      transform: scale(1.5);
+    }
+  }
+}

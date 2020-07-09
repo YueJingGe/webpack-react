@@ -170,6 +170,36 @@ const { default: _ } = await import(/* webpackChunkName: "lodash" */ "lodash");
 - 对最少数量的模块使用 loader
 
   include / exclude
+ 
+- webpack-bundle-analyzer bundle 分析
+
+- compression-webpack-plugin 压缩 webpack，预先提供带 content-codeing 编码的压缩资源
+
+- uglifyjs-webpack-plugin 压缩 js
+
+      parallel 并发： 使用多进程并行运行可以提高构建速度
+
+      参数：os.cpus().length - 1 （os：node os 模块,系统操作函数）
+
+- happypack
+
+      通过 js 的多进程加速打包
+
+      HappyPack.ThreadPool({ size: os.cpus().length }) 实例化进程池
+
+- optimization 优化
+
+      splitChunks 拆分代码
+
+      minimizer 最小化器
+ 
+## 兼容
+
+autoprefixer 自动添加前缀
+
+## 插件
+
+- ContextReplacementPlugin 上下文替换，允许覆盖查找规则
 
 ## 公共路径 publicPath
 

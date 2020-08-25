@@ -1,9 +1,9 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { Form, Input, Button, Checkbox, Divider, message } from "antd";
-import SlideVerification from "@utils/slideVerification";
+import SlideVerification from "../../utils/slideVerification";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { slideCheck, sendSmsCode, codeLogin } from "@server/request";
+import { slideCheck, sendSmsCode, codeLogin } from "../../server/request";
 import "./index.less";
 
 class Login extends React.Component {

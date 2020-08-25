@@ -1,8 +1,8 @@
 import React from "react";
 import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import getAlphabetList from "@utils/getAlphabetList";
-import { getPhoneBook } from "@server/request";
+import getAlphabetList from "../../utils/getAlphabetList";
+import { getPhoneBook } from "../../server/request";
 import "./index.less";
 
 class PhoneBook extends React.Component {

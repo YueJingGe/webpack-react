@@ -7,31 +7,31 @@ import {
 } from "react-router-dom";
 import { createBrowserHistory as createHistory } from "history";
 const history = createHistory();
-import LazyLoad from "@utils/LazyLoad";
+import LazyLoad from "./utils/LazyLoad";
 
 const Layout = LazyLoad(() =>
-  import(/* webpackChunkName: "Layout" */ "@pages/Layout")
+  import(/* webpackChunkName: "Layout" */ "./pages/Layout")
 );
 const Login = LazyLoad(() =>
-  import(/* webpackChunkName: "Login" */ "@pages/Login")
+  import(/* webpackChunkName: "Login" */ "./pages/Login")
 );
 const Home = LazyLoad(() =>
-  import(/* webpackChunkName: "Home" */ "@components/Home")
+  import(/* webpackChunkName: "Home" */ "./components/Home")
 );
 const Todo = LazyLoad(() =>
-  import(/* webpackChunkName: "Todo" */ "@components/Todo")
+  import(/* webpackChunkName: "Todo" */ "./components/Todo")
 );
 const TestReact = LazyLoad(() =>
-  import(/* webpackChunkName: "TestReact" */ "@components/TestReact")
+  import(/* webpackChunkName: "TestReact" */ "./components/TestReact")
 );
 const PhoneBook = LazyLoad(() =>
-  import(/* webpackChunkName: "PhoneBook" */ "@components/PhoneBook")
+  import(/* webpackChunkName: "PhoneBook" */ "./components/PhoneBook")
 );
 const DynamicSort = LazyLoad(() =>
-  import(/* webpackChunkName: "DynamicSort" */ "@components/DynamicSort")
+  import(/* webpackChunkName: "DynamicSort" */ "./components/DynamicSort")
 );
 const Player = LazyLoad(() =>
-  import(/* webpackChunkName: "Player" */ "@components/Player")
+  import(/* webpackChunkName: "Player" */ "./components/Player")
 );
 
 function App() {

@@ -3,6 +3,7 @@
   "sideEffects": false,
   "version": "1.0.0",
   "description": "使用webpack从零搭建react",
+  "homepage": "https://yuejingge.github.io/webpack-react",
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
@@ -21,7 +22,6 @@
   "bugs": {
     "url": "https://github.com/YueJingGe/webpack-react/issues"
   },
-  "homepage": "https://yuejingge.github.io/webpack-react",
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/plugin-proposal-class-properties": "^7.4.4",

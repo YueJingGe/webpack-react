@@ -5,14 +5,14 @@ const webpack = require("webpack");
 
 module.exports = {
   resolve: {
-    alias: {
-      // 别名
-      "@src": path.resolve("src"),
-      "@components": path.resolve("src/components"),
-      "@pages": path.resolve("src/pages"),
-      "@utils": path.resolve("src/utils"),
-      "@server": path.resolve("src/server"),
-    },
+    // alias: {
+    //   // 别名
+    //   "@src": path.resolve("src"),
+    //   "@components": path.resolve("src/components"),
+    //   "@pages": path.resolve("src/pages"),
+    //   "@utils": path.resolve("src/utils"),
+    //   "@server": path.resolve("src/server"),
+    // },
     extensions: [".tsx", ".ts", ".js"],
   },
   // 将不怎么需要更新的第三方库脱离webpack打包，不被打入bundle中，从而减少打包时间

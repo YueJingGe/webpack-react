@@ -13,7 +13,7 @@ const Layout = LazyLoad(() =>
   import(/* webpackChunkName: "Layout" */ "@pages/Layout")
 );
 const Login = LazyLoad(() =>
-  import(/* webpackChunkName: "GeneralCom" */ "@pages/Login")
+  import(/* webpackChunkName: "Login" */ "@pages/Login")
 );
 const Home = LazyLoad(() =>
   import(/* webpackChunkName: "Home" */ "@components/Home")
@@ -24,11 +24,11 @@ const Todo = LazyLoad(() =>
 const TestReact = LazyLoad(() =>
   import(/* webpackChunkName: "TestReact" */ "@components/TestReact")
 );
-const GeneralCom = LazyLoad(() =>
-  import(/* webpackChunkName: "GeneralCom" */ "@components/GeneralCom")
-);
 const PhoneBook = LazyLoad(() =>
   import(/* webpackChunkName: "PhoneBook" */ "@components/PhoneBook")
+);
+const DynamicSort = LazyLoad(() =>
+  import(/* webpackChunkName: "DynamicSort" */ "@components/DynamicSort")
 );
 
 function App() {
@@ -42,8 +42,8 @@ function App() {
           <Route path="/home" exact component={Home} />
           <Route path="/todo" exact component={Todo} />
           <Route path="/testreact" exact component={TestReact} />
-          <Route path="/generalcom" exact component={GeneralCom} />
           <Route path="/phonebook" exact component={PhoneBook} />
+          <Route path="/dynamicsort" exact component={DynamicSort} />
           <Redirect from="/layout" to="/home" />
         </Switch>
       </Route>

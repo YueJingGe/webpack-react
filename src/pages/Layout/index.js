@@ -49,11 +49,11 @@ class Layout extends React.Component {
         <Menu.Item key="testreact" icon={<OrderedListOutlined />}>
           <Link to="/testreact">React 新特性试验</Link>
         </Menu.Item>
-        <Menu.Item key="generalcom" icon={<OrderedListOutlined />}>
-          <Link to="/generalcom">通用组件</Link>
-        </Menu.Item>
         <Menu.Item key="phonebook" icon={<TeamOutlined />}>
-          <Link to="/phonebook">通讯录——锚点</Link>
+          <Link to="/phonebook">通讯录_锚点</Link>
+        </Menu.Item>
+        <Menu.Item key="dynamicsort" icon={<TeamOutlined />}>
+          <Link to="/dynamicsort">爬楼梯_动态排序</Link>
         </Menu.Item>
       </Menu>
     );

@@ -30,6 +30,9 @@ const PhoneBook = LazyLoad(() =>
 const DynamicSort = LazyLoad(() =>
   import(/* webpackChunkName: "DynamicSort" */ "@components/DynamicSort")
 );
+const Player = LazyLoad(() =>
+  import(/* webpackChunkName: "Player" */ "@components/Player")
+);
 
 function App() {
   return (
@@ -44,6 +47,7 @@ function App() {
           <Route path="/testreact" exact component={TestReact} />
           <Route path="/phonebook" exact component={PhoneBook} />
           <Route path="/dynamicsort" exact component={DynamicSort} />
+          <Route path="/player" exact component={Player} />
           <Redirect from="/layout" to="/home" />
         </Switch>
       </Route>

@@ -43,17 +43,20 @@ class Layout extends React.Component {
         <Menu.Item key="home" icon={<HomeOutlined />}>
           <Link to="/home">Home</Link>
         </Menu.Item>
-        <Menu.Item key="todo" icon={<OrderedListOutlined />}>
-          <Link to="/todo">Todo</Link>
-        </Menu.Item>
         <Menu.Item key="testreact" icon={<OrderedListOutlined />}>
           <Link to="/testreact">React 新特性试验</Link>
+        </Menu.Item>
+        <Menu.Item key="todo" icon={<OrderedListOutlined />}>
+          <Link to="/todo">Todo</Link>
         </Menu.Item>
         <Menu.Item key="phonebook" icon={<TeamOutlined />}>
           <Link to="/phonebook">通讯录_锚点</Link>
         </Menu.Item>
         <Menu.Item key="dynamicsort" icon={<TeamOutlined />}>
           <Link to="/dynamicsort">爬楼梯_动态排序</Link>
+        </Menu.Item>
+        <Menu.Item key="player" icon={<TeamOutlined />}>
+          <Link to="/player">视频播放</Link>
         </Menu.Item>
       </Menu>
     );

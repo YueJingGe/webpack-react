@@ -1,1 +1,1 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[9],{"I+Ix":function(n,o,s){"use strict";s.r(o),o.default=function(){console.log("this is b")}}}]);
+(window.webpackJsonp=window.webpackJsonp||[]).push([[10],{"I+Ix":function(n,o,s){"use strict";s.r(o),o.default=function(){console.log("this is b")}}}]);

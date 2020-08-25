@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/YueJingGe/webpack-react/issues"
   },
-  "homepage": "https://yuejingge.github.io/webpack-react/dist",
+  "homepage": "https://yuejingge.github.io/webpack-react",
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
